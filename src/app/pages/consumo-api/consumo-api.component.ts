@@ -7,13 +7,13 @@ import { UserService } from '../../service/user.service';
 })
 export class ConsumoAPIComponent implements OnInit {
 
-  arrUsers = [];
+  arrUsers:any = null;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(response => {
-      this.arrUsers = response.results[0];
+      this.arrUsers = response;
       console.log(this.arrUsers);     
     });
   }

@@ -14,4 +14,3 @@ export class UserService {
     return this.http_client.get(this.url);
   }
 }
-
