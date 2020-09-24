@@ -1,0 +1,64 @@
+<div class="mt-5">
+    <table class="table" *ngIf="arrRegister.length != 0">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Documento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of arrRegister">
+            <td>{{ item.name }}</td>
+            <td>{{ item.age }}</td>
+            <td>{{ item.sex }}</td>
+            <td>{{ item.document }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="alert alert-warning" role="alert" *ngIf="arrRegister.length == 0">
+        No existen registros en localStorage
+      </div>
+      
+      <form id="formRegistro" class="mt-5" (ngSubmit)="onRegister(form)" #form="ngForm">
+        <div class="form-group">
+          <label for="name">Nombre <small>*(Obligatorio)</small></label>
+          <input [(ngModel)]="register_model.name" type="text" class="form-control" id="name" name="name" required #name="ngModel">
+          <div *ngIf="name.errors?.required && name.touched">
+            <small class="text-danger">Por favor, complete este campo</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Edad  <small>*(Obligatorio)</small></label>
+          <input [(ngModel)]="register_model.age" type="number" min="18" max="60" class="form-control" id="age" name="age" required #age="ngModel">
+          <div *ngIf="age.errors?.required && age.touched">
+            <small class="text-danger">Por favor, complete este campo</small>
+          </div>
+        </div>
+
+        <div class="form-group" id="sex">
+          <label for="sex">Sexo <small>*(Obligatorio)</small></label>
+          <select [(ngModel)]="register_model.sex" class="form-control" id="sex" name="sex" required #sex="ngModel">
+            <option>Hombre</option>
+            <option>Mujer</option>
+          </select>
+          <div *ngIf="sex.errors?.required && sex.touched">
+            <small class="text-danger">Por favor, complete este campo</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input (change)='onFile($event)' type="file" class="form-control-file" name="document" required>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        
+        <div class="alert alert-danger d-none mt-5" role="alert" #smsRegister>
+          * Por favor complete todos los campos obligatorios
+        </div>
+      </form>
+</div>
